@@ -1,0 +1,28 @@
+{% extends 'layouts.html' %}
+{% load crispy_forms_tags %}
+{% block content%}
+
+<div class="container">
+   <h2 align="center">Contact Form</h2>
+   <form class="" method="POST" >
+    {% csrf_token %}
+    <div class="form-group mb-3">
+        <label for="fname" class="form-label">Name:</label>
+        <input name="name" type="text" class="form-control" placeholder="Your name.." required>
+
+        <label for="lname" class="form-label">Last Name:</label>
+        <input name="lastname" type="text" class="form-control" placeholder="Your last name.." required>
+
+        <label for="exampleFormControlInput1" class="form-label">Email address:</label>
+        <input name="email" type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com" required>
+      </div>
+      <div class="mb-3">
+        <label for="subject" class="form-label">Comment:</label>
+        <textarea name="comment" class="form-control" id="exampleFormControlTextarea1" rows="3" required></textarea>
+        <input type="submit" class="btn btn-success btn-lg mt-1 ml-4" value="Submit">
+      </div>
+   </form>
+
+</div>
+
+{% endblock %}

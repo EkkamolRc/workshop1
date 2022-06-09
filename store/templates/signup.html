@@ -1,0 +1,18 @@
+{% extends 'layouts.html' %}
+{% load crispy_forms_tags %}
+{% block breadcrumbs %}
+<li><a href="{% url 'home' %}">หน้าแรก</a> > <a>แบบฟอร์มลงทะเบียน</a></li>
+{% endblock breadcrumbs %}
+{% block content%}
+
+<div class="container">
+   <h2 align="center">แบบฟอร์มลงทะเบียน</h2>
+   <form method="post">
+       <p>{{form | crispy}}</p>
+       {% csrf_token %}
+       <input type="submit" class="btn btn-primary" value="Register">
+   </form>
+
+</div>
+
+{% endblock %}

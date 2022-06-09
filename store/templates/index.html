@@ -1,0 +1,65 @@
+{% extends 'layouts.html' %}
+{% load static %}
+{% load humanize %}
+{% block site_title %}
+{{ category.name}} |
+{% endblock %}
+{% block content%}
+
+<div class="container">
+  <div align="right">
+
+      <div class="dropdown mt-4">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+         data-bs-toggle="dropdown">
+          เรียงลำดับ
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a href="{% url 'home' %}?filter_district=ASC" class="dropdown-item">ราคาน้อยไปมาก</a>
+          <a href="{% url 'home' %}?filter_district=DESC " class="dropdown-item">ราคามากไปน้อย</a>
+        </div>
+      </div>
+    </div>
+
+    
+
+    <div class="row my-3">
+    {% for p in prod %}
+    <div class="col-lg-4 col-md-6 mb-4">
+        <div class="card h-100">
+          <a href="{{p.product.get_url}}"><img class="card-img-top" src="{{p.img}}" alt=""></a>
+          <div class="card-body">
+            <h4 class="card-title">
+              <a href="{{p.product.get_url}}">{{p.product.name}}</a>
+            </h4>
+            <h5>฿{{p.product.price|intcomma}} บาท</h5>
+            <p class="card-text">{{p.product.description | slice:":120"}}</p>
+          </div>
+          <div class="card-footer">
+              {% if  product.stock <= 0 %}
+                    <h5 class="text-danger">สินค้าหมด</h5>
+              {% else %}
+                <a href="{% url 'addCart' p.product.id%}" class="btn btn-primary">เพิ่มลงตะกร้า</a>
+              {% endif %}
+            
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+    </div>
+    <nav aria-label="Page navigation example">
+      {% if products.paginator.num_pages > 1 %}
+        <ul class="pagination">
+          {% for page_number in products.paginator.page_range %}  
+            <li class="page-item
+            {% if products.number == page_number%}
+                active
+            {% endif %}
+            "><a class="page-link" href="?page={{ page_number}}">{{ page_number}}</a></li>
+          {%endfor%}
+        </ul>
+      {% endif %}
+    </nav>
+</div>
+
+{% endblock %}
